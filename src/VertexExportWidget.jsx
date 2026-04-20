@@ -10,49 +10,36 @@ export default function VertexExportWidget({ DataDragAndDrop }) {
 useEffect(() => {
   if (!DataDragAndDrop || !window.widget) return;
 
-const dropElement = document.getElementById("root");
-  // 🧠 delay to ensure DOM is ready
-  const timer = setTimeout(() => {
-    if (!dropElement) {
-      console.error("Drop element not found");
-      return;
-    }
+  const dropElement = window.widget.body;
 
-    if (dropElement.__vertexBound__) return;
-    dropElement.__vertexBound__ = true;
+  if (dropElement.__vertexBound__) return;
+  dropElement.__vertexBound__ = true;
 
-    console.log("Binding drag & drop...");
+  console.log("Binding drag & drop on widget.body");
 
-    DataDragAndDrop.droppable(dropElement, {
-      drop: function (data) {
-        console.log("DROP FIRED", data);
+  DataDragAndDrop.droppable(dropElement, {
+    drop: function (data) {
+      console.log("DROP FIRED", data);
 
-        try {
-          const obj = JSON.parse(data);
-          const item = obj?.data?.items?.[0];
+      try {
+        const obj = JSON.parse(data);
+        const item = obj?.data?.items?.[0];
 
-          setDataItem(item || null);
-          setApiResult("");
-          setError("");
-        } catch (e) {
-          console.error(e);
-          setError("Invalid dropped data");
-        }
-      },
-      enter: function () {
-        console.log("DRAG ENTER");
-        dropElement.classList.add("drag-over");
-      },
-      leave: function () {
-        console.log("DRAG LEAVE");
-        dropElement.classList.remove("drag-over");
+        setDataItem(item || null);
+        setApiResult("");
+        setError("");
+      } catch (e) {
+        console.error(e);
+        setError("Invalid dropped data");
       }
-    });
-
-  }, 300); // 🔥 important delay
-
-  return () => clearTimeout(timer);
-
+    },
+    enter: function () {
+      dropElement.classList.add("drag-over");
+    },
+    leave: function () {
+      dropElement.classList.remove("drag-over");
+    }
+  });
 }, [DataDragAndDrop]);
 
   const sendToVertex = async () => {

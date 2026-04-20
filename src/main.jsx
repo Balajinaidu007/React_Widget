@@ -11,9 +11,8 @@ function getContainer() {
   if (!container) {
     container = document.createElement("div");
     container.id = "root";
-    document.body.appendChild(container);
+    window.widget.body.appendChild(container);
   }
-
   return container;
 }
 
