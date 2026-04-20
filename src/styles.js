@@ -1,52 +1,57 @@
 export const styles = {
   container: {
     fontFamily: "Arial",
-    padding: 20,
+    padding: 12,
+    maxWidth: 600,
+    margin: "0 auto",
   },
 
   dropZone: {
     border: "2px dashed #888",
-    padding: 50,
+    padding: 25, // reduced from 50
     textAlign: "center",
-    borderRadius: 10,
+    borderRadius: 8,
     background: "#fafafa",
   },
 
   card: {
     border: "1px solid #ddd",
-    borderRadius: 10,
-    padding: 20,
+    borderRadius: 8,
+    padding: 15,
+    maxHeight: "70vh",        // prevents huge vertical growth
+    overflowY: "auto",        // enables internal scroll
   },
 
   header: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: 15,
+    marginBottom: 10,
   },
 
   body: {
-    marginBottom: 15,
+    marginBottom: 10,
   },
 
   footer: {
-    marginTop: 10,
+    marginTop: 8,
   },
 
   successBox: {
     background: "#e6ffed",
-    padding: 10,
-    marginTop: 10,
-    borderRadius: 5,
+    padding: 8,
+    marginTop: 8,
+    borderRadius: 4,
   },
 
   errorBox: {
     background: "#ffe6e6",
-    padding: 15,
-    borderRadius: 5,
+    padding: 10,
+    borderRadius: 4,
   },
 
   errorText: {
     color: "red",
-    marginTop: 10,
+    marginTop: 6,
+    fontSize: 14,
   },
 };
