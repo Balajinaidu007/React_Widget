@@ -23,8 +23,12 @@ function getContainer() {
 function mountReact(DataDragAndDrop) {
   const container = getContainer();
 
-  if (!window.__VERTEX_ROOT__) {
+  if (
+    !window.__VERTEX_ROOT__ ||
+    window.__VERTEX_CONTAINER__ !== container
+  ) {
     window.__VERTEX_ROOT__ = ReactDOM.createRoot(container);
+    window.__VERTEX_CONTAINER__ = container;
   }
 
   window.__VERTEX_ROOT__.render(
@@ -35,31 +39,30 @@ function mountReact(DataDragAndDrop) {
 window.onunhandledrejection = function (event) {
   console.error("Unhandled Promise:", event.reason);
 };
-/**
- * 3DEXPERIENCE / Netvibes lifecycle support
- */
-function safeInit() {
-  // widget lifecycle (preferred in 3DEXPERIENCE)
-  if (window.widget && typeof window.widget.onLoad === "function") {
-    window.widget.onLoad(() => {
-      mountReact();
-    });
-  } else {
-    // fallback (normal browser / Vite dev)
-    mountReact();
-  }
-}
-safeInit();
 
-function initWidget() {
+
+window.initWidget = function () {
+  if (window.__WIDGET_INIT__) return;   // 🧠 prevent duplicate registration
+  window.__WIDGET_INIT__ = true;
+
+console.log("initWidget called");
+
+window.widget.addEvent("onLoad", function () {
+  console.log("onLoad triggered");
+
+  window.require(
+    ["DS/DataDragAndDrop/DataDragAndDrop"],
+    function (DataDragAndDrop) {
+      console.log("DataDragAndDrop loaded");
+      mountReact(DataDragAndDrop);
+    }
+  );
+});
+};
+(function waitForWidget() {
   if (window.widget && window.require) {
-    window.require(
-      ["DS/DataDragAndDrop/DataDragAndDrop"],
-      function (DataDragAndDrop) {
-        mountReact(DataDragAndDrop);
-      }
-    );
+    window.initWidget();
   } else {
-    mountReact(null); // fallback for dev
+    setTimeout(waitForWidget, 100);
   }
-}
+})();

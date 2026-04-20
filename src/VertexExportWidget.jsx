@@ -12,6 +12,10 @@ useEffect(() => {
 
   const dropElement = window.widget.body;
 
+  if (dropElement.__vertexBound__) return; // 🧠 prevent duplicate
+
+  dropElement.__vertexBound__ = true;
+
   DataDragAndDrop.droppable(dropElement, {
     drop: function (data) {
       try {
