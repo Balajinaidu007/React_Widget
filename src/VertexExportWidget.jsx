@@ -1,43 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
 
-export default function VertexExportWidget() {
+export default function VertexExportWidget({ DataDragAndDrop }) {
   const [dataItem, setDataItem] = useState(null);
   const [apiResult, setApiResult] = useState("");
   const [error, setError] = useState("");
 
   // Drag & Drop (ENOVIA replacement)
 useEffect(() => {
-  const handleDrop = (event) => {
-    event.preventDefault();
+  if (!DataDragAndDrop || !window.widget) return;
 
-    try {
-      const obj = JSON.parse(event.dataTransfer.getData("text"));
-      const item = obj?.data?.items?.[0];
+  const dropElement = window.widget.body;
 
-      setDataItem(item || null);
-      setApiResult("");
-      setError("");
-    } catch {
-      setError("Invalid dropped data");
+  DataDragAndDrop.droppable(dropElement, {
+    drop: function (data) {
+      try {
+        const obj = JSON.parse(data);
+        const item = obj?.data?.items?.[0];
+
+        setDataItem(item || null);
+        setApiResult("");
+        setError("");
+      } catch {
+        setError("Invalid dropped data");
+      }
+    },
+    enter: function () {
+      dropElement.classList.add("drag-over");
+    },
+    leave: function () {
+      dropElement.classList.remove("drag-over");
     }
-  };
-
-  const handleDragOver = (e) => e.preventDefault();
-
-  const root = document.getElementById("root");
-
-  if (!root) return;
-
-  root.addEventListener("drop", handleDrop);
-  root.addEventListener("dragover", handleDragOver);
-
-  return () => {
-    // ✅ CORRECT cleanup
-    root.removeEventListener("drop", handleDrop);
-    root.removeEventListener("dragover", handleDragOver);
-  };
-}, []);
+  });
+}, [DataDragAndDrop]);
 
   const sendToVertex = async () => {
     if (!dataItem) return;
