@@ -20,19 +20,16 @@ function getContainer() {
 /**
  * Safe React mount (prevents duplicate roots)
  */
-function mountReact() {
+function mountReact(DataDragAndDrop) {
   const container = getContainer();
 
-  // 🔥 recreate root if container changed or emptied
-  if (
-    !window.__VERTEX_ROOT__ ||
-    window.__VERTEX_CONTAINER__ !== container
-  ) {
+  if (!window.__VERTEX_ROOT__) {
     window.__VERTEX_ROOT__ = ReactDOM.createRoot(container);
-    window.__VERTEX_CONTAINER__ = container;
   }
 
-  window.__VERTEX_ROOT__.render(<App />);
+  window.__VERTEX_ROOT__.render(
+    <App DataDragAndDrop={DataDragAndDrop} />
+  );
 }
 
 window.onunhandledrejection = function (event) {
@@ -52,5 +49,17 @@ function safeInit() {
     mountReact();
   }
 }
-
 safeInit();
+
+function initWidget() {
+  if (window.widget && window.require) {
+    window.require(
+      ["DS/DataDragAndDrop/DataDragAndDrop"],
+      function (DataDragAndDrop) {
+        mountReact(DataDragAndDrop);
+      }
+    );
+  } else {
+    mountReact(null); // fallback for dev
+  }
+}
