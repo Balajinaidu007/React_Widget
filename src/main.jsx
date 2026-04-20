@@ -41,22 +41,47 @@ window.onunhandledrejection = function (event) {
 
 
 window.initWidget = function () {
-  if (window.__WIDGET_INIT__) return;   // 🧠 prevent duplicate registration
+  if (window.__WIDGET_INIT__) return;
   window.__WIDGET_INIT__ = true;
 
-console.log("initWidget called");
+  console.log("initWidget called");
 
-window.widget.addEvent("onLoad", function () {
-  console.log("onLoad triggered");
+  window.widget.addEvent("onLoad", function () {
+    console.log("onLoad triggered");
 
-  window.require(
-    ["DS/DataDragAndDrop/DataDragAndDrop"],
-    function (DataDragAndDrop) {
-      console.log("DataDragAndDrop loaded");
-      mountReact(DataDragAndDrop);
-    }
-  );
-});
+    window.require(
+      ["DS/DataDragAndDrop/DataDragAndDrop"],
+      function (DataDragAndDrop) {
+        console.log("DataDragAndDrop loaded");
+
+        const dropElement = window.widget.body;
+
+        if (!dropElement) {
+          console.error("widget.body not ready");
+          return;
+        }
+
+        console.log("Binding DnD to:", dropElement);
+
+        DataDragAndDrop.droppable(dropElement, {
+          drop: function (data) {
+            console.log("DROP FIRED", data);
+
+            window.__REACT_DROP_HANDLER__?.(data);
+          },
+          enter: function () {
+            dropElement.classList.add("drag-over");
+          },
+          leave: function () {
+            dropElement.classList.remove("drag-over");
+          }
+        });
+
+        // mount React AFTER DnD is ready
+        mountReact(DataDragAndDrop);
+      }
+    );
+  });
 };
 (function waitForWidget() {
   if (window.widget && window.require) {

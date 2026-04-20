@@ -6,41 +6,24 @@ export default function VertexExportWidget({ DataDragAndDrop }) {
   const [apiResult, setApiResult] = useState("");
   const [error, setError] = useState("");
 
-  // Drag & Drop (ENOVIA replacement)
 useEffect(() => {
-  if (!DataDragAndDrop || !window.widget) return;
+  window.__REACT_DROP_HANDLER__ = (data) => {
+    try {
+      const obj = JSON.parse(data);
+      const item = obj?.data?.items?.[0];
 
-  const dropElement = window.widget.body;
-
-  if (dropElement.__vertexBound__) return;
-  dropElement.__vertexBound__ = true;
-
-  console.log("Binding drag & drop on widget.body");
-
-  DataDragAndDrop.droppable(dropElement, {
-    drop: function (data) {
-      console.log("DROP FIRED", data);
-
-      try {
-        const obj = JSON.parse(data);
-        const item = obj?.data?.items?.[0];
-
-        setDataItem(item || null);
-        setApiResult("");
-        setError("");
-      } catch (e) {
-        console.error(e);
-        setError("Invalid dropped data");
-      }
-    },
-    enter: function () {
-      dropElement.classList.add("drag-over");
-    },
-    leave: function () {
-      dropElement.classList.remove("drag-over");
+      setDataItem(item || null);
+      setApiResult("");
+      setError("");
+    } catch (e) {
+      setError("Invalid dropped data");
     }
-  });
-}, [DataDragAndDrop]);
+  };
+
+  return () => {
+    window.__REACT_DROP_HANDLER__ = null;
+  };
+}, []);
 
   const sendToVertex = async () => {
     if (!dataItem) return;
