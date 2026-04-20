@@ -23,13 +23,21 @@ function getContainer() {
 function mountReact() {
   const container = getContainer();
 
-  if (!window.__VERTEX_ROOT__) {
+  // 🔥 recreate root if container changed or emptied
+  if (
+    !window.__VERTEX_ROOT__ ||
+    window.__VERTEX_CONTAINER__ !== container
+  ) {
     window.__VERTEX_ROOT__ = ReactDOM.createRoot(container);
+    window.__VERTEX_CONTAINER__ = container;
   }
 
   window.__VERTEX_ROOT__.render(<App />);
 }
 
+window.onunhandledrejection = function (event) {
+  console.error("Unhandled Promise:", event.reason);
+};
 /**
  * 3DEXPERIENCE / Netvibes lifecycle support
  */
