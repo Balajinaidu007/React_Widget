@@ -7,32 +7,37 @@ export default function VertexExportWidget() {
   const [error, setError] = useState("");
 
   // Drag & Drop (ENOVIA replacement)
-  useEffect(() => {
-    const handleDrop = (event) => {
-      event.preventDefault();
+useEffect(() => {
+  const handleDrop = (event) => {
+    event.preventDefault();
 
-      try {
-        const obj = JSON.parse(event.dataTransfer.getData("text"));
-        const item = obj?.data?.items?.[0];
+    try {
+      const obj = JSON.parse(event.dataTransfer.getData("text"));
+      const item = obj?.data?.items?.[0];
 
-        setDataItem(item || null);
-        setApiResult("");
-        setError("");
-      } catch {
-        setError("Invalid dropped data");
-      }
-    };
+      setDataItem(item || null);
+      setApiResult("");
+      setError("");
+    } catch {
+      setError("Invalid dropped data");
+    }
+  };
 
-    const handleDragOver = (e) => e.preventDefault();
+  const handleDragOver = (e) => e.preventDefault();
 
-    window.addEventListener("drop", handleDrop);
-    window.addEventListener("dragover", handleDragOver);
+  const root = document.getElementById("root");
 
-    return () => {
-      window.removeEventListener("drop", handleDrop);
-      window.removeEventListener("dragover", handleDragOver);
-    };
-  }, []);
+  if (!root) return;
+
+  root.addEventListener("drop", handleDrop);
+  root.addEventListener("dragover", handleDragOver);
+
+  return () => {
+    // ✅ CORRECT cleanup
+    root.removeEventListener("drop", handleDrop);
+    root.removeEventListener("dragover", handleDragOver);
+  };
+}, []);
 
   const sendToVertex = async () => {
     if (!dataItem) return;
