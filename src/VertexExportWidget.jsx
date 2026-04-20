@@ -10,32 +10,49 @@ export default function VertexExportWidget({ DataDragAndDrop }) {
 useEffect(() => {
   if (!DataDragAndDrop || !window.widget) return;
 
-  const dropElement = window.widget.body;
-
-  if (dropElement.__vertexBound__) return; // 🧠 prevent duplicate
-
-  dropElement.__vertexBound__ = true;
-
-  DataDragAndDrop.droppable(dropElement, {
-    drop: function (data) {
-      try {
-        const obj = JSON.parse(data);
-        const item = obj?.data?.items?.[0];
-
-        setDataItem(item || null);
-        setApiResult("");
-        setError("");
-      } catch {
-        setError("Invalid dropped data");
-      }
-    },
-    enter: function () {
-      dropElement.classList.add("drag-over");
-    },
-    leave: function () {
-      dropElement.classList.remove("drag-over");
+const dropElement = document.getElementById("root");
+  // 🧠 delay to ensure DOM is ready
+  const timer = setTimeout(() => {
+    if (!dropElement) {
+      console.error("Drop element not found");
+      return;
     }
-  });
+
+    if (dropElement.__vertexBound__) return;
+    dropElement.__vertexBound__ = true;
+
+    console.log("Binding drag & drop...");
+
+    DataDragAndDrop.droppable(dropElement, {
+      drop: function (data) {
+        console.log("DROP FIRED", data);
+
+        try {
+          const obj = JSON.parse(data);
+          const item = obj?.data?.items?.[0];
+
+          setDataItem(item || null);
+          setApiResult("");
+          setError("");
+        } catch (e) {
+          console.error(e);
+          setError("Invalid dropped data");
+        }
+      },
+      enter: function () {
+        console.log("DRAG ENTER");
+        dropElement.classList.add("drag-over");
+      },
+      leave: function () {
+        console.log("DRAG LEAVE");
+        dropElement.classList.remove("drag-over");
+      }
+    });
+
+  }, 300); // 🔥 important delay
+
+  return () => clearTimeout(timer);
+
 }, [DataDragAndDrop]);
 
   const sendToVertex = async () => {
