@@ -1,5 +1,6 @@
 import { applyPolyfills, defineCustomElements } from '@vertexvis/viewer/loader';
 import React from 'react';
+import '@vertexvis/viewer';
 
 export function useViewer() {
 	const [isReady, setIsReady] = React.useState(false);
