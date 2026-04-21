@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-
+import { ViewerContextProvider } from "./contexts/viewer-context";
+import {Home} from "./components/Home";
 /**
- * Get or create root container safely
+ * Get or create root container safelyn
  */
+console.log("main.jsx loaded");
 function getContainer() {
   let container = document.getElementById("root");
 
@@ -29,11 +31,19 @@ function mountReact(DataDragAndDrop) {
     window.__VERTEX_ROOT__ = ReactDOM.createRoot(container);
     window.__VERTEX_CONTAINER__ = container;
   }
+const vertexEnv = import.meta.env.VITE_VERTEX_ENV;
 
-  window.__VERTEX_ROOT__.render(
-    <App DataDragAndDrop={DataDragAndDrop} />
-  );
+window.__VERTEX_ROOT__.render(
+  <ViewerContextProvider>
+    <Home vertexEnv={vertexEnv} />
+  </ViewerContextProvider>
+);
 }
+export const getServerSideProps = () => {
+	return {
+		props: { vertexEnv: Config.vertexEnv },
+	};
+};
 
 window.onunhandledrejection = function (event) {
   console.error("Unhandled Promise:", event.reason);
@@ -49,38 +59,7 @@ window.initWidget = function () {
   window.widget.addEvent("onLoad", function () {
     console.log("onLoad triggered");
 
-    window.require(
-      ["DS/DataDragAndDrop/DataDragAndDrop"],
-      function (DataDragAndDrop) {
-        console.log("DataDragAndDrop loaded");
-
-        const dropElement = window.widget.body;
-
-        if (!dropElement) {
-          console.error("widget.body not ready");
-          return;
-        }
-
-        console.log("Binding DnD to:", dropElement);
-
-        DataDragAndDrop.droppable(dropElement, {
-          drop: function (data) {
-            console.log("DROP FIRED", data);
-
-            window.__REACT_DROP_HANDLER__?.(data);
-          },
-          enter: function () {
-            dropElement.classList.add("drag-over");
-          },
-          leave: function () {
-            dropElement.classList.remove("drag-over");
-          }
-        });
-
-        // mount React AFTER DnD is ready
-        mountReact(DataDragAndDrop);
-      }
-    );
+    mountReact();
   });
 };
 (function waitForWidget() {
