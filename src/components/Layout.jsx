@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
+import '@vertexvis/viewer';
 
 import { easeOutEntering, sharpLeaving } from '../lib/transitions';
 

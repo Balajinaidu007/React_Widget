@@ -1,4 +1,5 @@
 import Link from '@mui/material/Link';
+import '@vertexvis/viewer';
 
 const HoweBallJointsName = 'Howe ball joint';
 const M10x35BoltsName = 'M10x35';

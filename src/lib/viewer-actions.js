@@ -1,4 +1,5 @@
 import { AnimationDurationMs } from '../components/Viewer';
+import '@vertexvis/viewer';
 
 export async function fitAll(
 	viewer,

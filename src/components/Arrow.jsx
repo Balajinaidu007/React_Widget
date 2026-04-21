@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 /* @jsx jsx */ /** @jsxRuntime classic */ import { jsx } from '@emotion/react';
+import '@vertexvis/viewer';
 
 export function ArrowDown() {
 	const dimensions = 50;

@@ -4,6 +4,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { head } from '@vertexvis/api-client-node';
 import React from 'react';
+import '@vertexvis/viewer';
 
 import { useViewerContext } from '../contexts/viewer-context';
 

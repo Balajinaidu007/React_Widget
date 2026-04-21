@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import '@vertexvis/viewer';
+
 
 import { useViewerContext } from '../contexts/viewer-context';
 

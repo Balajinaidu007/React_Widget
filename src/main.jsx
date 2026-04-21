@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { ViewerContextProvider } from "./contexts/viewer-context";
 import {Home} from "./components/Home";
+import '@vertexvis/viewer';
+
 /**
  * Get or create root container safelyn
  */

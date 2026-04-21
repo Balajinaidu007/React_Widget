@@ -1,6 +1,7 @@
 import { Config } from '@lib/config';
 import { VertexClient } from '@vertexvis/api-client-node';
 import { createWriteStream } from 'fs';
+import '@vertexvis/viewer';
 
 export async function makeCall(apiCall) {
 	try {

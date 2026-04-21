@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import '@vertexvis/viewer';
 
 export const ViewerContext = createContext(null);
 

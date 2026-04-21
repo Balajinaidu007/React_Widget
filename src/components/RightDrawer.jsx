@@ -4,6 +4,7 @@ import { Parts } from './Parts';
 import Box from '@mui/material/Box';
 import Drawer, { drawerClasses } from '@mui/material/Drawer';
 import React from 'react';
+import '@vertexvis/viewer';
 
 export function RightDrawer({
 	content,

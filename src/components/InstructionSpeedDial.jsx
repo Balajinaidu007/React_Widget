@@ -3,6 +3,7 @@ import WidgetsOutlined from '@mui/icons-material/WidgetsOutlined';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import React from 'react';
+import '@vertexvis/viewer';
 
 export function InstructionSpeedDial({ onClick }) {
 	const actions = [

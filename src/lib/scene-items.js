@@ -1,4 +1,5 @@
 export const AnimationDurationMs = 500;
+import '@vertexvis/viewer';
 
 export async function flyTo({ camera, viewer }) {
 	if (viewer == null || camera == null) return;

@@ -1,6 +1,7 @@
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import React from 'react';
+import '@vertexvis/viewer';
 
 export function Stations({ sx }) {
 	const [station, setStation] = React.useState(1);

@@ -1,5 +1,6 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import '@vertexvis/viewer';
 
 export function NoStepActive() {
 	return (
