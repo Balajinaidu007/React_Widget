@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "dist",
   "headers": [
     {
       "source": "/(.*)",
@@ -8,16 +9,6 @@
           "value": "*"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/:path(.+\\.entry\\.js)$",
-      "destination": "/vertex-viewer-esm/:path"
-    },
-    {
-      "source": "/:path(.+\\.entry\\.js\\.map)$",
-      "destination": "/vertex-viewer-esm/:path"
     }
   ]
 }
