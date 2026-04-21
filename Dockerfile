@@ -1,66 +1,32 @@
-FROM node:20-alpine AS base
+# -------- Build stage --------
+FROM node:20-alpine AS builder
 
-RUN addgroup -g 1001 -S nodejs && \
-	adduser -u 1001 -g 1001 -S nextjs 
+WORKDIR /app
 
-USER nextjs
-
-# Setup env variabless for yarn and nextjs
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV YARN_VERSION=4.5.0
-
-# Enable corepack
-USER root
+# Enable corepack for yarn
 RUN corepack enable
-USER nextjs
 
-# 1. Install dependencies only when needed
-FROM base AS deps
-
-USER root
-
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk update && \
-	apk add --no-cache libc6-compat
-
-USER nextjs
-
-WORKDIR /app
-
-# Yarn install
+# Install dependencies
 COPY package.json yarn.lock .yarnrc.yml ./
+RUN yarn install --immutable
 
-RUN corepack prepare yarn@${YARN_VERSION} && \
-	yarn install --immutable
-
-# 2. Rebuild the source code only when needed
-FROM base AS builder
-
-USER nextjs
-
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy source
 COPY . .
 
-# Build
-RUN corepack prepare yarn@${YARN_VERSION} && \
-	yarn run build
+# IMPORTANT: copy vertex viewer runtime files into build output
+RUN yarn build && \
+    cp -r node_modules/@vertexvis/viewer/dist/* dist/
 
-# 3. Production image, copy all the files and run next
-FROM base AS runner
-
-USER nextjs
+# -------- Production stage --------
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-ENV NODE_ENV=production
+RUN npm install -g serve
 
-COPY --from=builder /app/public ./public
+# Copy final build
+COPY --from=builder /app/dist ./dist
 
-RUN mkdir .next
+EXPOSE 3000
 
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-
-ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD ["serve", "-s", "dist", "-l", "3000"]
