@@ -5,6 +5,7 @@ import { ViewerSpeedDial } from './ViewerSpeedDial';
 import { jsx } from '@emotion/react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
+import '@vertexvis/viewer';
 import {
 	VertexViewer,
 	VertexViewerDomElement,

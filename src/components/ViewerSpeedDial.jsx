@@ -6,6 +6,7 @@ import { red } from '@mui/material/colors';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import React from 'react';
+import '@vertexvis/viewer';
 
 export function ViewerSpeedDial({ onClick, viewer }) {
 	const actions = [

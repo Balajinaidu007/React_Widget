@@ -20,6 +20,8 @@ import {
 import { DefaultInstructions } from '../lib/work-instructions';
 import Snackbar from '@mui/material/Snackbar';
 import React, { useEffect, useState } from 'react';
+import '@vertexvis/viewer';
+
 
 import { useViewerContext } from '../contexts/viewer-context';
 

@@ -12,6 +12,7 @@ import StepButton from '@mui/material/StepButton';
 import Stepper from '@mui/material/Stepper';
 import { styled } from '@mui/material/styles';
 import React from 'react';
+import '@vertexvis/viewer';
 
 import { useViewerContext } from '../contexts/viewer-context';
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
+import '@vertexvis/viewer';
+
 
 export default function VertexExportWidget({ DataDragAndDrop }) {
   const [dataItem, setDataItem] = useState(null);

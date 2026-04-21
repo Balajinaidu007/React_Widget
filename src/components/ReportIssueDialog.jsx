@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import '@vertexvis/viewer';
 
 export function ReportIssueDialog({ open, onClose, onConfirm, partName }) {
 	const [issueType, setIssueType] = React.useState(1);
