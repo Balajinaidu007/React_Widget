@@ -26,7 +26,7 @@ function UnwrappedViewer({ onClick, viewer, ...props }) {
 	const instructionStep = viewerContext.selectedInstructionStep;
 
 	const src = `urn:vertex:stream-key:${streamKey}`;
-
+	console.log('Viewer rendered with streamKey', streamKey);
 	return (
 		<VertexViewer
 			css={{ height: '100%', width: '100%' }}
