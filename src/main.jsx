@@ -1,14 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import { ViewerContextProvider } from "./contexts/viewer-context";
-import {Home} from "./components/Home";
+import { Home } from "./components/Home";
 import '@vertexvis/viewer';
 
-/**
- * Get or create root container safelyn
- */
 console.log("main.jsx loaded");
+
 function getContainer() {
   let container = document.getElementById("root");
 
@@ -20,10 +17,7 @@ function getContainer() {
   return container;
 }
 
-/**
- * Safe React mount (prevents duplicate roots)
- */
-function mountReact(DataDragAndDrop) {
+function mountReact() {
   const container = getContainer();
 
   if (
@@ -33,24 +27,20 @@ function mountReact(DataDragAndDrop) {
     window.__VERTEX_ROOT__ = ReactDOM.createRoot(container);
     window.__VERTEX_CONTAINER__ = container;
   }
-const vertexEnv = import.meta.env.VITE_VERTEX_ENV;
 
-window.__VERTEX_ROOT__.render(
-  <ViewerContextProvider>
-    <Home vertexEnv={vertexEnv} />
-  </ViewerContextProvider>
-);
+  // ✅ Use env var correctly — read at build time by Vite
+  const vertexEnv = import.meta.env.VITE_VERTEX_ENV;
+
+  window.__VERTEX_ROOT__.render(
+    <ViewerContextProvider>
+      <Home vertexEnv={vertexEnv} />
+    </ViewerContextProvider>
+  );
 }
-export const getServerSideProps = () => {
-	return {
-		props: { vertexEnv: Config.vertexEnv },
-	};
-};
 
 window.onunhandledrejection = function (event) {
   console.error("Unhandled Promise:", event.reason);
 };
-
 
 window.initWidget = function () {
   if (window.__WIDGET_INIT__) return;
@@ -60,10 +50,10 @@ window.initWidget = function () {
 
   window.widget.addEvent("onLoad", function () {
     console.log("onLoad triggered");
-
     mountReact();
   });
 };
+
 (function waitForWidget() {
   if (window.widget && window.require) {
     window.initWidget();

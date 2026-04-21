@@ -6,10 +6,14 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
+      input: 'src/main.jsx',
       output: {
-        format: 'iife',   // critical for widget
-        entryFileNames: 'widget.js'
-      }
-    }
-  }
+        format: 'iife',
+        entryFileNames: 'widget.js',
+        // ✅ Inline ALL dynamic imports into widget.js
+        // This is mandatory when format is 'iife' — no separate chunks
+        inlineDynamicImports: true,
+      },
+    },
+  },
 });
