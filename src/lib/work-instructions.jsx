@@ -100,7 +100,7 @@ export const DefaultInstructions = {
 			sceneViewStateId: '49679fc2-2b98-4c39-ac21-cf8102dd39cc',
 			step: 1,
 			title: 'Install the inner hub on the spindle',
-			thumbnailUri: './public/step-1.png',
+			thumbnailUri: 'https://react-widget-alpha.vercel.app/step-1.png',
 		},
 		'step-2': {
 			doms: [
@@ -192,7 +192,7 @@ export const DefaultInstructions = {
 			sceneViewStateId: 'e146181e-2809-42b9-87f1-24d2bd25bef2',
 			step: 2,
 			title: 'Install the spindle on the ball joints',
-			thumbnailUri: './step-2.png',
+			thumbnailUri: 'https://react-widget-alpha.vercel.app/step-2.png',
 		},
 		'step-3': {
 			doms: [
@@ -232,7 +232,7 @@ export const DefaultInstructions = {
 			sceneViewStateId: '7006b7ba-1ec7-49aa-aefe-fe77698da65b',
 			step: 3,
 			title: 'Install the stabilizer arm',
-			thumbnailUri: '/step-3.png',
+			thumbnailUri: 'https://react-widget-alpha.vercel.app/step-3.png',
 		},
 		'step-4': {
 			doms: [
@@ -297,7 +297,7 @@ export const DefaultInstructions = {
 			sceneViewStateId: '6420d920-9166-4355-91d0-23139298472b',
 			step: 4,
 			title: 'Install the fender frame',
-			thumbnailUri: '/step-4.png',
+			thumbnailUri: 'https://react-widget-alpha.vercel.app/step-4.png',
 		},
 	},
 	title: 'Spindle Install',
