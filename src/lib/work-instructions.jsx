@@ -100,7 +100,7 @@ export const DefaultInstructions = {
 			sceneViewStateId: '49679fc2-2b98-4c39-ac21-cf8102dd39cc',
 			step: 1,
 			title: 'Install the inner hub on the spindle',
-			thumbnailUri: '/step-1.png',
+			thumbnailUri: './public/step-1.png',
 		},
 		'step-2': {
 			doms: [
@@ -192,7 +192,7 @@ export const DefaultInstructions = {
 			sceneViewStateId: 'e146181e-2809-42b9-87f1-24d2bd25bef2',
 			step: 2,
 			title: 'Install the spindle on the ball joints',
-			thumbnailUri: '/step-2.png',
+			thumbnailUri: './step-2.png',
 		},
 		'step-3': {
 			doms: [
