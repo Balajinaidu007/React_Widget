@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { ViewerContextProvider } from "./contexts/viewer-context";
 import {Home} from "./components/Home";
-import '@vertexvis/viewer';
 
 /**
  * Get or create root container safelyn
@@ -15,8 +14,7 @@ function getContainer() {
   if (!container) {
     container = document.createElement("div");
     container.id = "root";
-    window.widget.body.appendChild(container);
-  }
+    document.body.appendChild(container);  }
   return container;
 }
 
@@ -41,11 +39,6 @@ window.__VERTEX_ROOT__.render(
   </ViewerContextProvider>
 );
 }
-export const getServerSideProps = () => {
-	return {
-		props: { vertexEnv: Config.vertexEnv },
-	};
-};
 
 window.onunhandledrejection = function (event) {
   console.error("Unhandled Promise:", event.reason);
