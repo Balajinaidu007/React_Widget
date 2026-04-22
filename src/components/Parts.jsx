@@ -2,9 +2,11 @@ import { ContentHeader } from './ContentHeader';
 import { NoStepActive } from './NoStepActive';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { head } from '@vertexvis/api-client-node';
 import React from 'react';
 import '@vertexvis/viewer';
+
+// Utility function to get first element of array
+const head = (arr) => Array.isArray(arr) ? arr[0] : arr;
 
 import { useViewerContext } from '../contexts/viewer-context';
 

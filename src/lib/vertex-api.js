@@ -1,50 +1,21 @@
-import { Config } from '@lib/config';
-import { VertexClient } from '@vertexvis/api-client-node';
-import { createWriteStream } from 'fs';
+// NOTE: This file is for Node.js/server-side use only
+// For browser-based API calls, use fetch() directly or a backend proxy
+
 import '@vertexvis/viewer';
 
+// Stub implementations - these should not be called in browser environment
 export async function makeCall(apiCall) {
-	try {
-		const c = await getClient();
-		return (await apiCall(c)).data;
-	} catch (error) {
-		const ve = error;
-		return (
-			ve.vertexError?.res ?? {
-				errors: new Set([
-					{ status: '500', title: 'Unknown error from Vertex API.' },
-				]),
-			}
-		);
-	}
+	throw new Error('makeCall is not supported in browser environment. Use fetch() with backend proxy instead.');
 }
 
-let Client;
 export async function getClient() {
-	if (Client != null) return Client;
-
-	Client = await VertexClient.build({
-		basePath:
-			Config.vertexEnv === 'platprod'
-				? 'https://platform.vertexvis.com'
-				: `https://platform.${Config.vertexEnv}.vertexvis.io`,
-		client: {
-			id: process.env.VERTEX_CLIENT_ID ?? '',
-			secret: process.env.VERTEX_CLIENT_SECRET ?? '',
-		},
-	});
-
-	return Client;
+	throw new Error('getClient is not supported in browser environment. Use backend API instead.');
 }
 
 export function errorRes(message, res) {
-	return Promise.resolve(res.status(400).json({ message }));
+	throw new Error('errorRes is not supported in browser environment.');
 }
 
 export function createFile(stream, path) {
-	return new Promise((resolve) => {
-		const ws = createWriteStream(path);
-		stream.pipe(ws);
-		ws.on('finish', resolve);
-	});
+	throw new Error('createFile is not supported in browser environment.');
 }
