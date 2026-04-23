@@ -35,13 +35,13 @@ export function Home({ vertexEnv }) {
 		setWorkInstructions,
 	} = useViewerContext();
 
-	const [activeStep, setActiveStep] = useState({ num: -1 });
+	//const [activeStep, setActiveStep] = useState({ num: -1 });
 
 	const [isReportIssueDialogOpen, setIsReportIssueDialogOpen] = useState(false);
 	const [isInitialView, setIsInitialView] = useState(true);
 	const [isSceneReady, setIsSceneReady] = useState(false);
 
-	const [rightDrawerContent, setRightDrawerContent] = useState('instructions');
+	//const [rightDrawerContent, setRightDrawerContent] = useState('instructions');
 	const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
 	const instructions = DefaultInstructions;
