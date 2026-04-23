@@ -47,13 +47,6 @@ function UnwrappedViewer({ onClick, viewer, ...props }) {
 				</Box>
 			</VertexViewerToolbar>
 			<VertexViewerToolbar placement="top-right">
-        	<VertexViewerViewCube
-          css={{ marginRight: '32px' }}
-          animationDuration={AnimationDurationMs}
-          viewer={viewer.current ?? undefined}
-        	/>
-      </VertexViewerToolbar>
-			<VertexViewerToolbar placement="top-right">
 				<InstructionSpeedDial onClick={onClick} />
 			</VertexViewerToolbar>
 			<VertexViewerToolbar placement="bottom-right">
