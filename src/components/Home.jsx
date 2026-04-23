@@ -120,9 +120,7 @@ useEffect(() => {
 					<Viewer
 						configEnv={vertexEnv}
 						onClick={(button) => {
-							if (button === 'instructions' || button === 'parts') {
-								setRightDrawerContent(button);
-							} else if (button === 'issue') {
+						if (button === 'issue') {
 								setIsReportIssueDialogOpen(true);
 							}
 						}}
