@@ -63,38 +63,38 @@ useEffect(() => {
 		setIsSceneReady(true);
 	}
 
-	async function onInstructionStepSelected(num) {
-		if (!isSceneReady) return;
-		const step = instructions.steps[Object.keys(instructions.steps)[num]];
-		setIsSceneReady(false);
+	// async function onInstructionStepSelected(num) {
+	// 	if (!isSceneReady) return;
+	// 	const step = instructions.steps[Object.keys(instructions.steps)[num]];
+	// 	setIsSceneReady(false);
 
-		if (step) {
-			await setPhantomForSceneItems(viewer.ref, step.sceneItemsVisible);
-		} else {
-			await clearPhantomFromAllSceneItems(viewer.ref);
-		}
+	// 	if (step) {
+	// 		await setPhantomForSceneItems(viewer.ref, step.sceneItemsVisible);
+	// 	} else {
+	// 		await clearPhantomFromAllSceneItems(viewer.ref);
+	// 	}
 
-		const res = await flyTo({
-			camera: step?.camera,
-			viewer: viewer.ref.current,
-		});
+	// 	const res = await flyTo({
+	// 		camera: step?.camera,
+	// 		viewer: viewer.ref.current,
+	// 	});
 
-		return res
-			? res.onAnimationCompleted.on(() => onComplete(num, step))
-			: onComplete(num, step);
-	}
+	// 	return res
+	// 		? res.onAnimationCompleted.on(() => onComplete(num, step))
+	// 		: onComplete(num, step);
+	// }
 
-	async function handleBeginAssembly() {
-		handleInitialView();
-		await onInstructionStepSelected(0);
-	}
+	// async function handleBeginAssembly() {
+	// 	handleInitialView();
+	// 	await onInstructionStepSelected(0);
+	// }
 
-	function onComplete(num, step) {
-		handleInitialView();
-		setActiveStep({ num });
-		setSelectedInstructionStep(step);
-		setIsSceneReady(true);
-	}
+	// function onComplete(num, step) {
+	// 	handleInitialView();
+	// 	setActiveStep({ num });
+	// 	setSelectedInstructionStep(step);
+	// 	setIsSceneReady(true);
+	// }
 
 	function handleInitialView() {
 		if (isInitialView) {
@@ -137,20 +137,20 @@ useEffect(() => {
 					/>
 				)
 			}
-			rightDrawer={
-				<RightDrawer
-					content={rightDrawerContent}
-					onBeginAssembly={() => {
-						void handleBeginAssembly();
-					}}
-					onClose={() => setRightDrawerContent(undefined)}
-					open={rightDrawerContent != null}
-					onShow={(_name, ids) => {
-						void selectBySuppliedIds({ ids, viewer: viewer.ref.current });
-					}}
-				/>
-			}
-			rightDrawerWidth={rightDrawerContent != null ? RightDrawerWidth : 0}
+			// rightDrawer={
+			// 	<RightDrawer
+			// 		content={rightDrawerContent}
+			// 		onBeginAssembly={() => {
+			// 			void handleBeginAssembly();
+			// 		}}
+			// 		onClose={() => setRightDrawerContent(undefined)}
+			// 		open={rightDrawerContent != null}
+			// 		onShow={(_name, ids) => {
+			// 			void selectBySuppliedIds({ ids, viewer: viewer.ref.current });
+			// 		}}
+			// 	/>
+			// }
+			rightDrawerWidth={0}
 		>
 			{isReportIssueDialogOpen && (
 				<ReportIssueDialog
