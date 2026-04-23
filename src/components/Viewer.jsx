@@ -12,6 +12,7 @@ import {
 	VertexViewerDomGroup,
 	VertexViewerDomRenderer,
 	VertexViewerToolbar,
+	VertexViewerViewCube,
 } from '@vertexvis/viewer-react';
 
 import { useViewerContext } from '../contexts/viewer-context';
@@ -46,6 +47,13 @@ function UnwrappedViewer({ onClick, viewer, ...props }) {
 					</Link>
 				</Box>
 			</VertexViewerToolbar>
+			      <VertexViewerToolbar placement="top-right">
+        <VertexViewerViewCube
+          css={{ marginRight: '32px' }}
+          animationDuration={AnimationDurationMs}
+          viewer={viewer.current ?? undefined}
+        />
+      </VertexViewerToolbar>
 			<VertexViewerToolbar placement="top-right">
 				<InstructionSpeedDial onClick={onClick} />
 			</VertexViewerToolbar>
