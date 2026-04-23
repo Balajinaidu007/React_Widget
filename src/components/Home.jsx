@@ -5,7 +5,7 @@ import {
 	RightDrawerWidth,
 } from './Layout';
 import { ReportIssueDialog } from './ReportIssueDialog';
-import { RightDrawer } from './RightDrawer';
+//import { RightDrawer } from './RightDrawer';
 import { Viewer } from './Viewer';
 import {
 	flyTo,
