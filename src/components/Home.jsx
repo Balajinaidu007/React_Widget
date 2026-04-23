@@ -104,17 +104,17 @@ useEffect(() => {
 
 	return (
 		<Layout
-			bottomDrawer={
-				<BottomDrawer
-					activeStep={activeStep.num}
-					onSelect={(num) => {
-						void onInstructionStepSelected(num);
-					}}
-					ready={isSceneReady}
-					viewer={viewer.ref}
-				/>
-			}
-			bottomDrawerHeight={BottomDrawerHeight}
+			// bottomDrawer={
+			// 	<BottomDrawer
+			// 		activeStep={activeStep.num}
+			// 		onSelect={(num) => {
+			// 			void onInstructionStepSelected(num);
+			// 		}}
+			// 		ready={isSceneReady}
+			// 		viewer={viewer.ref}
+			// 	/>
+			// }
+			// bottomDrawerHeight={BottomDrawerHeight}
 			main={
 				viewer.isReady && (
 					<Viewer

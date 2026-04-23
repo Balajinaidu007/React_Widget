@@ -49,7 +49,7 @@ function UnwrappedViewer({ onClick, viewer, ...props }) {
 			</VertexViewerToolbar>
 			      <VertexViewerToolbar placement="top-right">
         <VertexViewerViewCube
-          css={{ marginRight: '32px' }}
+          css={{ marginRight: '40px' }}
           animationDuration={AnimationDurationMs}
           viewer={viewer.current ?? undefined}
         />
